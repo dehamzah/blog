@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {{ section.content | safe }}
+
+    {% if config.extra.list_blog %}
+    <h2 id="blog">Blog</h2>
+    <p>Latest note to myself about technical stuff.</p>
+    <ul class="posts">
+        {% set blog = get_section(path="blog/_index.md") %}
+        {% for page in blog.pages | slice(end=3) %}
+        <li>
+            <a href="{{ page.permalink }}">{{ page.title }}</a>
+            <span class="date">{{ page.date | date(format="%Y-%m-%d") }}</span>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <p>See all notes <a href="/blog">here</a>.</p>
+    {% endif %}
+
+
+    {% if config.extra.show_open_source %}
+    <h2 id="open-source">Open Source</h2>
+    <p>I also built and contribute to some open source projects in my free time. See what I am doing on <a href="https://github.com/dehamzah" target="_blank" rel="noopener noreferrer">GitHub</a>.</p>
+    {% endif %}
+
+    
+{% endblock %}

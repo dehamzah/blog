@@ -15,3 +15,7 @@ brew install zola
 ```
 zola serve
 ```
+
+### Commands
+
+Type `zola --help` for all available commands.

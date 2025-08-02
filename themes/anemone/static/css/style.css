@@ -153,3 +153,11 @@ h3::before {
 h4::before {
     content: '#### ';
 }
+
+h5::before {
+    content: '##### ';
+}
+
+h6::before {
+    content: '###### ';
+}

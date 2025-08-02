@@ -16,19 +16,57 @@ Since Docker changed its licensing, companies with over 250 employees or $10M re
 
 [Colima](https://github.com/abiosoft/colima) is a free, open-source alternative that runs Docker containers on macOS using Lima VMs.
 
-## Why Colima?
 
-- Drop-in replacement for Docker Desktop
-- Supports Docker CLI, Compose, nerdctl
-- Kubernetes support with --kubernetes
-- Fast, lightweight, and easy to set up
+### How Colima Works
 
-Installation and usage in Mac OS:
+Colima uses [Lima](https://github.com/lima-vm/lima) under the hood to run a lightweight Linux virtual machine on your Mac. Inside this VM, Colima sets up Docker (or containerd) so you can run containers just like you would with Docker Desktop.
+
+When you use the Docker CLI (`docker run`, `docker compose`, etc.), your commands are sent to the Docker daemon running inside the Colima-managed VM. Colima handles networking, file sharing, and resource allocation between your Mac and the VM, making the experience seamless.
+
+Key points:
+- **Isolation:** Containers run inside a Linux VM, not directly on macOS.
+- **Integration:** Docker CLI and Compose work out of the box.
+- **Performance:** Colima is fast and uses fewer resources than Docker Desktop.
+- **Customization:** You can easily adjust CPU, memory, and disk settings for the VM.
+
+This architecture lets you use Docker on macOS without the overhead or licensing restrictions.
+
+
+### Installation and usage
+
 
 ```
+# Installation
 brew install colima docker
+
+# Start colima with default config
 colima start
+
+# Check the status
+colima status
 ```
+
+### Configure Colima VM Spec
+
+Sometime you need to specify more VM Spec to Colima so that you can run more containers.
+
+```
+# Check Current Colima VM Spec
+colima list
+
+# Stop Colima First
+colima stop
+
+# Start with new Config
+# You can see all the available config with `colima start --help`
+colima start --cpu 10 --memory 16 --disk 120
+
+# Check the new VM Spec
+colima list
+```
+
+Next time you start with `colima start` it will remember the last configuration, you can verify it with command `colima list`.
+
 
 ## Need a UI? Use Lazydocker
 

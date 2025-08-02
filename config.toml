@@ -1,6 +1,9 @@
 # The URL the site will be built for
 base_url = "https://dehamzah.com"
 
+title = "Dede Hamzah"
+description = "Software engineer passionate about building tools, platforms, and systems at scale. I work across the stack with Typescript and Cloud Infrastructure."
+
 # Whether to automatically compile all Sass files in the sass directory
 compile_sass = true
 

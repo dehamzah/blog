@@ -125,11 +125,31 @@
   margin: .375rem;
 }
 
+/* post */
+
 .post-header h1 {
   margin-top: 2rem;
   margin-bottom: 2.5rem;
 }
 
-.post-content h2 {
+.post-content h2, .post-content h3, .post-content h4 {
   margin-top: 2.5rem;
+}
+
+/* content */
+
+h1::before {
+    content: '# ';
+}
+
+h2::before {
+    content: '## ';
+}
+
+h3::before {
+    content: '### ';
+}
+
+h4::before {
+    content: '#### ';
 }

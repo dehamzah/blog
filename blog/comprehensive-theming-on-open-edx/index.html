@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="robots" content="index, follow">
+        
+        <link rel="alternate" type="application/rss+xml" title="RSS" href="https://dehamzah.com/rss.xml">
+        
+        <title>Dede Hamzah | Comprehensive Theming on Open edX</title>
+
+        <link rel="preload" href="https://dehamzah.com/css/style.css" as="style">
+        <link rel="stylesheet" href="https://raw.githack.com/Speyll/suCSS/main/reset-min.css" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://raw.githack.com/Speyll/suCSS/main/suCSS-min.css" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://dehamzah.com/css/style.css">
+        <link rel="stylesheet" href="https://dehamzah.com/css/custom.css">
+
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-H7C5QTC8FH"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-H7C5QTC8FH');
+        </script>
+
+        <!-- Add favicon with appropriate sizes -->
+        <link rel="icon" href="https:&#x2F;&#x2F;dehamzah.com/favicon.ico">
+        
+    </head>
+    <body>
+        
+        
+        
+        
+        <nav id="nav-bar">
+            
+            <a href="&#x2F;" class="">
+                
+                &#x2F;home
+            </a>
+            
+            <a href="&#x2F;blog" class="">
+                
+                &#x2F;blog
+            </a>
+            
+            <a href="&#x2F;about" class="">
+                
+                &#x2F;about
+            </a>
+            
+
+            <div class="theme-toggle" id="theme-toggle" role="button" tabindex="0" aria-label="Toggle theme"
+                data-icon-base="https://dehamzah.com/icons.svg"
+                data-icon-dark="#darkMode"
+                data-icon-light="#lightMode"
+                data-sound-src="https://dehamzah.com/click.ogg">
+                <svg class="icon">
+                    <use id="theme-icon"></use>
+                </svg>
+            </div>
+        </nav>
+
+        <main>
+            
+<article class="post">
+    <header class="post-header">
+        
+        <time datetime="2016-09-05">Published on:
+            <span class="accent-data">2016-09-05</span>
+        </time>
+        
+
+        
+        <address rel="author">By
+            <span class="accent-data">dehamzah</span>
+        </address>
+        
+
+        <h1>Comprehensive Theming on Open edX</h1>
+    </header>
+
+
+<div class="toc-container">
+    <h2>Table of content</h2>
+    <ul>
+        
+        <li>
+            <a href="https://dehamzah.com/blog/comprehensive-theming-on-open-edx/#creating-the-theme">Creating the Theme</a>
+            
+            <ul>
+                
+                <li><a href="https://dehamzah.com/blog/comprehensive-theming-on-open-edx/#theme-structure">Theme Structure</a></li>
+                
+                <li><a href="https://dehamzah.com/blog/comprehensive-theming-on-open-edx/#html-templates">HTML Templates</a></li>
+                
+                <li><a href="https://dehamzah.com/blog/comprehensive-theming-on-open-edx/#sass-css">SASS&#x2F;CSS</a></li>
+                
+                <li><a href="https://dehamzah.com/blog/comprehensive-theming-on-open-edx/#images">Images</a></li>
+                
+            </ul>
+            
+        </li>
+        
+        <li>
+            <a href="https://dehamzah.com/blog/comprehensive-theming-on-open-edx/#activating-the-theme">Activating the Theme</a>
+            
+        </li>
+        
+    </ul>
+</div>
+
+
+    <div class="post-content">
+        <p>How to change the look of Open edX, as far as i know, there are 2 methods possible, stanford theming, and comprehensive theming method. The first one soon will be obesolate, and we should start using the comprehensive method to change how the Open edX looks. The existing documentation for this comprehensive theme is quite good enough but not yet give some clue to newcomer like me to activate the theme (per this post is written).</p>
+<p>My post here mostly takes from Open edX documentation <a href="http://edx.readthedocs.io/projects/edx-installing-configuring-and-running/en/latest/configuration/theming/index.html">here</a> and <a href="https://github.com/edx/edx-platform/tree/master/themes">here</a>, plus my experience when developing a theme for <a href="https://indonesiax.co.id">IndonesiaX</a>.</p>
+<p>Comprehensive Theming, like the documentation said, it lets us to customize the appearance of our Open edX installation. We can override Sass/CSS, images, or entire HTML templates. In this guide, i will be using Open edX <code>eucalyptus</code> as code base.</p>
+<h2 id="creating-the-theme">Creating the Theme</h2>
+<h3 id="theme-structure">Theme Structure</h3>
+<p>A theme is a directory of assets. The top directory is our theme name. I use <code>starter-theme</code> as our example. The structure theme here, basicly must mimic the edx-platform theme structure. Files that we create on our theme here will overwrite the default files in edx-platform repo. So the concept is, if you want override something, just copy the default files from edx-platform repo to our theme, and start making changes from copied files.</p>
+<p>Here is the example file structure :</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>starter-theme
+</span><span>└── lms
+</span><span>    ├── static
+</span><span>    │   ├── images
+</span><span>    │   │   └── logo.png
+</span><span>    │   └── sass
+</span><span>    │       ├── _overrides.scss
+</span><span>    │       ├── lms-main-v1-rtl.scss
+</span><span>    │       └── lms-main-v1.scss
+</span><span>    └── templates
+</span><span>        ├── footer.html
+</span><span>        └── header.html
+</span></code></pre>
+<h3 id="html-templates">HTML Templates</h3>
+<p>As i said above, if want to make changes on html templates, just copy the default files, paste it to our theme templates folder and make some changes from there. Just take some notes, if we upgrade our Open edX to newer version, we may must refactor our custom template to using new Open edX templates.</p>
+<h3 id="sass-css">SASS/CSS</h3>
+<p>Styling in Open edX is done with Sass and then compiled to CSS. We can override the default style or add new css rules, by just mimic the file name in <code>edx-platform/lms/static/sass/</code> folder. If we want to make some changes/add in css, here is the main sass file that i recommend to override:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>- `lms-main-v1.scss`		// For override main lms style
+</span><span>- `lms-main-v1-rtl.scss`	// For override main lms right-to-left style
+</span><span>- `lms-course.scss`			// For override style lms course
+</span><span>- `lms-course-rtl.scss`		// For override right-to-left style lms course
+</span></code></pre>
+<p>For example, if we just want to override main style, just create file named <code>lms-main-v1.scss</code> on our theme sass folder and <code>_overrides.scss</code> for our simple custom sass, then add this line of code on top of the file:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>// Import the original styles from edx-platform.
+</span><span>@import &#39;lms/static/sass/lms-main-v1&#39;;
+</span><span>
+</span><span>// Our custom sass start here
+</span><span>@import &#39;overrides&#39;
+</span></code></pre>
+<p>Import the original styles corresponding to sass file we overwrite.</p>
+<h3 id="images">Images</h3>
+<p>If you want to replace images, just mimic the file name on edx-platform repo, and put it on folder images as structure above. If you want to add new images assets, put it there too.</p>
+<p>Here is the example code to call the images assets on our HTML templates:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>&lt;img class=&quot;img-logo&quot; src=&quot;${static.url(&#39;starter-theme/images/logo.png&#39;)}&quot; height=&quot;50&quot; alt=&quot;Logo&quot; /&gt;
+</span></code></pre>
+<p>Or if you want to call it via CSS, write it like this:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>background-image: url(&quot;../starter-theme/images/logo.png&quot;);
+</span></code></pre>
+<h2 id="activating-the-theme">Activating the Theme</h2>
+<p>To use our new theme, we must configure some value and update the assets. Here is the steps:</p>
+<ul>
+<li>
+<p>Create folder <code>themes</code> on <code>/edx/app/edxapp/</code></p>
+</li>
+<li>
+<p>Put our new theme on that folder. So for this example our theme location will be <code>/edx/app/edxapp/themes/starter-theme</code></p>
+</li>
+<li>
+<p>Make some changes in <code>lms.env.json</code> located in <code>/edx/app/edxapp/</code>. Then change some variables to this:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>  ENABLE_COMPREHENSIVE_THEMING: true,
+</span><span>  COMPREHENSIVE_THEME_DIRS: [&quot;/edx/app/edxapp/themes&quot;],
+</span><span>  DEFAULT_SITE_THEME: &quot;starter-theme&quot;,
+</span></code></pre>
+</li>
+<li>
+<p>Update the assets.</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>  $ sudo -H -u edxapp bash
+</span><span>  $ source /edx/app/edxapp/edxapp_env
+</span><span>  $ cd /edx/app/edxapp/edx-platform
+</span><span>  $ paver update_assets lms --settings=aws
+</span><span>  $ exit
+</span></code></pre>
+<p>*p.s. If you are in development, i recommend you adding <code>--debug</code> on command paver. This will compile the css to extended style and showing you the compile process in terminal, so you can debug your code when it failed to compile.</p>
+</li>
+<li>
+<p>Restart the lms instance.</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>  $ sudo /edx/bin/supervisorctl restart edxapp:lms
+</span></code></pre>
+</li>
+</ul>
+<p>Thats it.</p>
+<p>If you just want to test out this comprehensive theming, i had create a github repo for you to clone here:</p>
+<p><a href="https://github.com/dehamzah/starter-theme-openedx">https://github.com/dehamzah/starter-theme-openedx</a></p>
+<p>I also create a simple bash script to update the assets on my gist <a href="https://gist.github.com/dehamzah/0e9258ada87705791e4628e0e5aa9621">here</a>.</p>
+<p>If you have some issues just comments below, maybe i can help or maybe other readers can help too.</p>
+<p>p.s. What if i already follow all these steps above but my Open edX theme still not changed?</p>
+<p>Try to login to django admin on <code>/admin</code> with superuser account.
+Then go to Theming &gt; Site Themes : <code>/admin/theming/sitetheme/</code>.
+In there add site theme, and put your theme name there.
+If you already compile your assets, you can try refreshing your Open edX homepage, it should be changed now.</p>
+<hr />
+<p>Note: I'm no longer developing open edx theme, if you have question, you should go to <a href="https://openedx.slack.com/">open edx slack channel</a>.</p>
+
+    </div>
+
+    
+</article>
+
+        </main>
+
+        <footer>
+            <hr>
+<div id="footer-container">
+    <p>Made using <a target="_blank" rel="noopener noreferrer" href="https://getzola.org">Zola</a></p>
+</div>
+
+        </footer>
+
+        <!-- Move JS to end of body and add defer -->
+        <script src="https://dehamzah.com/js/script.js" defer></script>
+    </body>
+</html>

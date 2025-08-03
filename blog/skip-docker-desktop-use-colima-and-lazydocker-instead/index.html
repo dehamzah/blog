@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="robots" content="index, follow">
+        
+        <link rel="alternate" type="application/rss+xml" title="RSS" href="https://dehamzah.com/rss.xml">
+        
+        <title>Dede Hamzah | Skip Docker Desktop — Use Colima (and Lazydocker) Instead</title>
+
+        <link rel="preload" href="https://dehamzah.com/css/style.css" as="style">
+        <link rel="stylesheet" href="https://raw.githack.com/Speyll/suCSS/main/reset-min.css" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://raw.githack.com/Speyll/suCSS/main/suCSS-min.css" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://dehamzah.com/css/style.css">
+        <link rel="stylesheet" href="https://dehamzah.com/css/custom.css">
+
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-H7C5QTC8FH"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-H7C5QTC8FH');
+        </script>
+
+        <!-- Add favicon with appropriate sizes -->
+        <link rel="icon" href="https:&#x2F;&#x2F;dehamzah.com/favicon.ico">
+        
+    </head>
+    <body>
+        
+        
+        
+        
+        <nav id="nav-bar">
+            
+            <a href="&#x2F;" class="">
+                
+                &#x2F;home
+            </a>
+            
+            <a href="&#x2F;blog" class="">
+                
+                &#x2F;blog
+            </a>
+            
+            <a href="&#x2F;about" class="">
+                
+                &#x2F;about
+            </a>
+            
+
+            <div class="theme-toggle" id="theme-toggle" role="button" tabindex="0" aria-label="Toggle theme"
+                data-icon-base="https://dehamzah.com/icons.svg"
+                data-icon-dark="#darkMode"
+                data-icon-light="#lightMode"
+                data-sound-src="https://dehamzah.com/click.ogg">
+                <svg class="icon">
+                    <use id="theme-icon"></use>
+                </svg>
+            </div>
+        </nav>
+
+        <main>
+            
+<article class="post">
+    <header class="post-header">
+        
+        <time datetime="2025-08-01">Published on:
+            <span class="accent-data">2025-08-01</span>
+        </time>
+        
+
+        
+        <address rel="author">By
+            <span class="accent-data">dehamzah</span>
+        </address>
+        
+
+        <h1>Skip Docker Desktop — Use Colima (and Lazydocker) Instead</h1>
+    </header>
+
+
+
+    <div class="post-content">
+        <p>Docker Desktop is great—but if you're using it at work, you might be paying more than you need to.</p>
+<p>Since Docker changed its licensing, companies with over 250 employees or $10M revenue must pay $9/user/month. For a 20-person dev team, that’s $2,160/year—just to run containers locally.</p>
+<h2 id="enter-colima">Enter Colima</h2>
+<p><a href="https://github.com/abiosoft/colima">Colima</a> is a free, open-source alternative that runs Docker containers on macOS using Lima VMs.</p>
+<h3 id="how-colima-works">How Colima Works</h3>
+<p>Colima uses <a href="https://github.com/lima-vm/lima">Lima</a> under the hood to run a lightweight Linux virtual machine on your Mac. Inside this VM, Colima sets up Docker (or containerd) so you can run containers just like you would with Docker Desktop.</p>
+<p>When you use the Docker CLI (<code>docker run</code>, <code>docker compose</code>, etc.), your commands are sent to the Docker daemon running inside the Colima-managed VM. Colima handles networking, file sharing, and resource allocation between your Mac and the VM, making the experience seamless.</p>
+<p>Key points:</p>
+<ul>
+<li><strong>Isolation:</strong> Containers run inside a Linux VM, not directly on macOS.</li>
+<li><strong>Integration:</strong> Docker CLI and Compose work out of the box.</li>
+<li><strong>Performance:</strong> Colima is fast and uses fewer resources than Docker Desktop.</li>
+<li><strong>Customization:</strong> You can easily adjust CPU, memory, and disk settings for the VM.</li>
+</ul>
+<p>This architecture lets you use Docker on macOS without the overhead or licensing restrictions.</p>
+<h3 id="installation-and-usage">Installation and usage</h3>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span># Installation
+</span><span>brew install colima docker
+</span><span>
+</span><span># Start colima with default config
+</span><span>colima start
+</span><span>
+</span><span># Check the status
+</span><span>colima status
+</span></code></pre>
+<h3 id="configure-colima-vm-spec">Configure Colima VM Spec</h3>
+<p>Sometime you need to specify more VM Spec to Colima so that you can run more containers.</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span># Check Current Colima VM Spec
+</span><span>colima list
+</span><span>
+</span><span># Stop Colima First
+</span><span>colima stop
+</span><span>
+</span><span># Start with new Config
+</span><span># You can see all the available config with `colima start --help`
+</span><span>colima start --cpu 10 --memory 16 --disk 120
+</span><span>
+</span><span># Check the new VM Spec
+</span><span>colima list
+</span></code></pre>
+<p>Next time you start with <code>colima start</code> it will remember the last configuration, you can verify it with command <code>colima list</code>.</p>
+<h2 id="need-a-ui-use-lazydocker">Need a UI? Use Lazydocker</h2>
+<p>Missing Docker Desktop’s dashboard? Try <a href="https://github.com/jesseduffield/lazydocker">Lazydocker</a> — a terminal UI to manage containers, images, volumes, and logs.</p>
+<p>Installation and usage in Mac OS:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>brew install lazydocker
+</span><span>lazydocker
+</span></code></pre>
+<h2 id="conclusion">Conclusion</h2>
+<p>If you're using Docker Desktop for work, switching to Colima + Lazydocker can save money without sacrificing functionality.</p>
+<p>But if only for personal use, Docker Desktop is fine.</p>
+
+    </div>
+
+    
+</article>
+
+        </main>
+
+        <footer>
+            <hr>
+<div id="footer-container">
+    <p>Made using <a target="_blank" rel="noopener noreferrer" href="https://getzola.org">Zola</a></p>
+</div>
+
+        </footer>
+
+        <!-- Move JS to end of body and add defer -->
+        <script src="https://dehamzah.com/js/script.js" defer></script>
+    </body>
+</html>

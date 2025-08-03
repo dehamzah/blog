@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="robots" content="index, follow">
+        
+        <link rel="alternate" type="application/rss+xml" title="RSS" href="https://dehamzah.com/rss.xml">
+        
+        <title>Dede Hamzah | How HTTPS Works</title>
+
+        <link rel="preload" href="https://dehamzah.com/css/style.css" as="style">
+        <link rel="stylesheet" href="https://raw.githack.com/Speyll/suCSS/main/reset-min.css" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://raw.githack.com/Speyll/suCSS/main/suCSS-min.css" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://dehamzah.com/css/style.css">
+        <link rel="stylesheet" href="https://dehamzah.com/css/custom.css">
+
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-H7C5QTC8FH"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-H7C5QTC8FH');
+        </script>
+
+        <!-- Add favicon with appropriate sizes -->
+        <link rel="icon" href="https:&#x2F;&#x2F;dehamzah.com/favicon.ico">
+        
+    </head>
+    <body>
+        
+        
+        
+        
+        <nav id="nav-bar">
+            
+            <a href="&#x2F;" class="">
+                
+                &#x2F;home
+            </a>
+            
+            <a href="&#x2F;blog" class="">
+                
+                &#x2F;blog
+            </a>
+            
+            <a href="&#x2F;about" class="">
+                
+                &#x2F;about
+            </a>
+            
+
+            <div class="theme-toggle" id="theme-toggle" role="button" tabindex="0" aria-label="Toggle theme"
+                data-icon-base="https://dehamzah.com/icons.svg"
+                data-icon-dark="#darkMode"
+                data-icon-light="#lightMode"
+                data-sound-src="https://dehamzah.com/click.ogg">
+                <svg class="icon">
+                    <use id="theme-icon"></use>
+                </svg>
+            </div>
+        </nav>
+
+        <main>
+            
+<article class="post">
+    <header class="post-header">
+        
+        <time datetime="2025-08-02">Published on:
+            <span class="accent-data">2025-08-02</span>
+        </time>
+        
+
+        
+        <address rel="author">By
+            <span class="accent-data">dehamzah</span>
+        </address>
+        
+
+        <h1>How HTTPS Works</h1>
+    </header>
+
+
+
+    <div class="post-content">
+        <p><strong>What is HTTPS?</strong></p>
+<ul>
+<li><strong>Hypertext Transfer Protocol Secure</strong>: Secure version of HTTP for safe data transfer between browser and website.</li>
+<li>Uses <strong>SSL/TLS</strong> to encrypt data, verify website identity, and ensure data integrity.</li>
+</ul>
+<h2 id="how-https-works-step-by-step">How HTTPS Works (Step-by-Step)</h2>
+<ol>
+<li>
+<p><strong>Starting the Connection</strong></p>
+<ul>
+<li>Enter <code>https://example.com</code> → Browser connects to website’s server (port 443).</li>
+<li>"S" in HTTPS means secure, using encryption.</li>
+</ul>
+</li>
+<li>
+<p><strong>SSL/TLS Handshake</strong> (Setting Up Security)</p>
+<ul>
+<li><strong>Server sends certificate</strong>: Contains server’s <strong>public key</strong> and identity info.</li>
+<li><strong>Browser verifies certificate</strong>: Checks if it’s valid, not expired, and from a trusted <strong>Certificate Authority (CA)</strong> (e.g., Let’s Encrypt).</li>
+<li><strong>Session key creation</strong>: Browser creates a random <strong>session key</strong>, encrypts it with server’s public key, and sends it.</li>
+<li><strong>Server decrypts</strong>: Uses its <strong>private key</strong> to get the session key.</li>
+<li><strong>Result</strong>: Both now share a secret session key for fast, symmetric encryption.</li>
+</ul>
+</li>
+<li>
+<p><strong>Secure Data Transfer</strong></p>
+<ul>
+<li>Browser and server use the session key to <strong>encrypt/decrypt</strong> data (e.g., passwords, web pages).</li>
+<li>Data is unreadable to eavesdroppers (e.g., hackers on public Wi-Fi).</li>
+<li><strong>Integrity check</strong>: Hashing ensures data isn’t tampered with during transfer.</li>
+</ul>
+</li>
+<li>
+<p><strong>Ongoing Communication</strong></p>
+<ul>
+<li>Secure exchange continues until you leave the site.</li>
+<li>Each session gets a new session key for security.</li>
+</ul>
+</li>
+</ol>
+<h2 id="key-concepts-to-remember">Key Concepts to Remember</h2>
+<ul>
+<li>
+<p><strong>SSL/TLS</strong>:</p>
+<ul>
+<li><strong>SSL</strong> (Secure Sockets Layer): Old protocol, replaced by <strong>TLS</strong> (Transport Layer Security).</li>
+<li>Provides:
+<ul>
+<li><strong>Encryption</strong>: Scrambles data so only intended recipient can read it.</li>
+<li><strong>Authentication</strong>: Verifies website is legit (not a fake).</li>
+<li><strong>Integrity</strong>: Ensures data isn’t altered in transit.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Certificates</strong>:</p>
+<ul>
+<li>Issued by <strong>CAs</strong> to prove website identity.</li>
+<li>Contains <strong>public key</strong> and domain details.</li>
+<li>Browser trusts CAs to confirm site is genuine.</li>
+</ul>
+</li>
+<li>
+<p><strong>Encryption Types</strong>:</p>
+<ul>
+<li><strong>Asymmetric</strong>: Uses public/private key pair for handshake (slower, secure for key exchange).</li>
+<li><strong>Symmetric</strong>: Uses shared session key for faster data transfer.</li>
+</ul>
+</li>
+<li>
+<p><strong>Why HTTPS Matters</strong>:</p>
+<ul>
+<li>Protects sensitive info (e.g., logins, credit cards).</li>
+<li>Prevents <strong>man-in-the-middle attacks</strong> (someone intercepting data).</li>
+<li>Builds trust: Browsers warn “Not Secure” for non-HTTPS sites.</li>
+<li>Boosts website SEO.</li>
+</ul>
+</li>
+</ul>
+<h2 id="memory-aids">Memory Aids</h2>
+<ul>
+<li><strong>HTTPS = HTTP + Security</strong>: Think “S” for “Safe.”</li>
+<li><strong>Handshake = Trust Setup</strong>: Like exchanging a secret code before talking.</li>
+<li><strong>Certificate = Website ID</strong>: Like a driver’s license for a website.</li>
+<li><strong>Session Key = Secret Handshake</strong>: A temporary code only you and the server know.</li>
+<li><strong>Encryption = Scrambling</strong>: Turns your data into gibberish without the key.</li>
+</ul>
+<h2 id="example-to-visualize">Example to Visualize</h2>
+<ul>
+<li>You visit <code>https://yourbank.com</code>:
+<ol>
+<li>Browser asks server for a secure connection.</li>
+<li>Server shows its “ID card” (certificate).</li>
+<li>Browser checks ID with a trusted authority (CA).</li>
+<li>You and server agree on a secret code (session key).</li>
+<li>All data (e.g., your login) is sent scrambled, safe from hackers.</li>
+</ol>
+</li>
+</ul>
+
+    </div>
+
+    
+</article>
+
+        </main>
+
+        <footer>
+            <hr>
+<div id="footer-container">
+    <p>Made using <a target="_blank" rel="noopener noreferrer" href="https://getzola.org">Zola</a></p>
+</div>
+
+        </footer>
+
+        <!-- Move JS to end of body and add defer -->
+        <script src="https://dehamzah.com/js/script.js" defer></script>
+    </body>
+</html>
